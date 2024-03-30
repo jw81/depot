@@ -6,9 +6,12 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     @randomized_title = "The Great Book #{rand(1000)}"
   end
 
-  test "should get index" do
+  test 'should get index' do
     get products_url
     assert_response :success
+    assert_select 'tbody tr', minimum: 3
+    assert_select 'tbody tr img', minimum: 3
+    assert_select 'a', 'New product'
   end
 
   test "should get new" do
