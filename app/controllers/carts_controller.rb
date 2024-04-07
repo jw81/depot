@@ -9,6 +9,7 @@ class CartsController < ApplicationController
 
   # GET /carts/1 or /carts/1.json
   def show
+    redirect_to store_index_url unless session[:cart_id] == @cart.id
   end
 
   # GET /carts/new
@@ -26,6 +27,7 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       if @cart.save
+        session[:cart_id] = @cart.id
         format.html { redirect_to cart_url(@cart), notice: "Cart was successfully created." }
         format.json { render :show, status: :created, location: @cart }
       else
