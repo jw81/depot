@@ -30,6 +30,8 @@ class LineItemsController < ApplicationController
       if @line_item.save
         # reset the store index visit per the challenge on pg.125
         session[:store_index_visits] = 0
+
+        format.turbo_stream
         format.html { redirect_to store_index_url }
         format.json { render :show, status: :created, location: @line_item }
       else
